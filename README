@@ -19,7 +19,7 @@ Measureable leaf attributes:
 	Width to Height Ratio
 
 Design:
-	If a search request needs to compare the request image to every leaf in a database then the amount of time taken to perform a search is O(n) factorial time which is linear in accordance to the size of the database because every leaf must be processed in order to find the least difference. If an attribute of the search request can help define a subset within the data to be searched, then this will reduce the time taken to O(n-!s). The search time can be reduced again by defining a key by which the subset can be sorted.
+	If a search request needs to compare the request image to every leaf in a database then the amount of time taken to perform a search is O(n) which is linear in accordance to the size of the database because every leaf must be processed in order to find the least difference. If an attribute of the search request can help define a subset within the data to be searched, then this will reduce the time taken to O(n-!s). The search time can be reduced again by defining a key by which the subset can be sorted.
 
 	A species should be represented by an attribute with the lowest variance. For example if every leaf in a given species had wild fluctuation in color but had a reliable surface area, then the surface area should be chosen as a means of identifying the species. This means that in order to have an accurate system there needs to be more cultivars than species. Here is a sample ERD.
 		[Species]-->[Cultivar]
