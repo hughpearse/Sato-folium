@@ -14,9 +14,10 @@ Requirements:
 
 Measureable leaf attributes:
 	Unique Color Count
-	Color Channel Standard Deviation
+	Color Channel Standard Deviation (pixel quantity taken into account)
 	Surface Area Ratio
 	Width to Height Ratio
+	Four point shape measurement
 
 Design:
 	If a search request needs to compare the request image to every leaf in a database then the amount of time taken to perform a search is O(n) which is linear in accordance to the size of the database because every leaf must be processed in order to find the least difference. If an attribute of the search request can help define a subset within the data to be searched, then this will reduce the time taken to O(n-!s). The search time can be reduced again by defining a key by which the subset can be sorted.
@@ -26,3 +27,5 @@ Design:
 		         -->[Cultivar]
 		         -->[Cultivar]
 	Every time a cultivar is added, the species needs to recalculate which attribute it is going to use to represent itself.
+
+	The system performs three steps to produce a list of probable species. First it takes all the attributes from the request and for each attribute it selects all plants within 10% of the value of the attribute. Then the system aggregates the selected data into a single result set. After that the system forces the result set to be no more than 10 results in length. The system then orders the 10 results by taking a 4 point shape measurement of the request and calculating the difference between the request and the 10 results. The 10 results are then sorted by their calculated difference.
