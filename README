@@ -29,3 +29,44 @@ Design:
 	Every time a cultivar is added, the species needs to recalculate which attribute it is going to use to represent itself.
 
 	The system performs three steps to produce a list of probable species. First it takes all the attributes from the request and for each attribute it selects all plants within 10% of the value of the attribute. Then the system aggregates the selected data into a single result set. After that the system forces the result set to be no more than 10 results in length. The system then orders the 10 results by taking a 4 point shape measurement of the request and calculating the difference between the request and the 10 results. The 10 results are then sorted by their calculated difference.
+
+Datasets:
+	Flavia Dataset (33 species, 1GB):
+	https://sourceforge.net/projects/flavia/files/Leaf%20Image%20Dataset/1.0/Leaves.tar.bz2/download
+
+	Leaf-Recognition Dataset (92 species, 4MB):
+	http://leaf-recognition.googlecode.com/files/dataset.zip
+
+Software:
+	Flavia
+	http://flavia.sourceforge.net/
+	
+	Leaf Snap
+	http://leafsnap.com/
+	
+	John Flanagan - project Maple
+	https://github.com/johnflan/Maple
+	
+	LeafAnalyser
+	http://leafanalyser.openillusionist.org.uk/
+	
+	Leaves Recognition v1.0
+	http://sourceforge.net/projects/lrecog/
+	
+	ePlantAnalyzer
+	http://www.youtube.com/watch?v=ShN_0hqnyM0
+	
+	Lamina
+	http://sourceforge.net/projects/lamina/
+	
+	leaf-recognition
+	http://code.google.com/p/leaf-recognition/
+	
+	kfulles
+	http://code.google.com/p/kfulles/
+	
+	calms
+	http://code.google.com/p/clams/
+	
+	Silva
+	https://github.com/ogrisel/silva
