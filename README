@@ -17,6 +17,7 @@ Measureable leaf attributes:
 	Color Channel Standard Deviation (pixel quantity taken into account)
 	Surface Area Ratio
 	Width to Height Ratio
+	Leaf parameter to surface area ratio
 	Four point shape measurement
 
 Design:
