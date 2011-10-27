@@ -22,7 +22,8 @@ Measureable leaf attributes:
 Design:
 	If a search request needs to compare the request image to every leaf in a database then the amount of time taken to perform a search is O(n) which is linear in accordance to the size of the database because every leaf must be processed in order to find the least difference. If an attribute of the search request can help define a subset within the data to be searched, then this will reduce the time taken to O(n-!s). The search time can be reduced again by defining a key by which the subset can be sorted.
 
-	A species should be represented by an attribute with the lowest variance. For example if every leaf in a given species had wild fluctuation in color but had a reliable surface area, then the surface area should be chosen as a means of identifying the species. This means that in order to have an accurate system there needs to be more cultivars than species. Every time a cultivar is added, the species needs to recalculate which attribute it is going to use to represent itself. Here is a sample ERD.
+	A species should be represented by an attribute with the lowest variance. For example if every leaf in a given species had wild fluctuation in color but had a reliable surface area, then the surface area should be chosen as a means of identifying the species. This means that in order to have an accurate system there needs to be more cultivars than species. Every time a cultivar is added, the species needs to recalculate which attribute it is going to use to represent itself. Here is a sample ERD:
+
 		[Species]-->[Cultivar]
 		         -->[Cultivar]
 		         -->[Cultivar]
@@ -30,7 +31,8 @@ Design:
 	The system performs three steps to produce a list of probable species.
 	1) First it takes all the attributes from the request and for each attribute it selects all plants within 10% of the value of the attribute.
 	2) Then the system aggregates the selected data into a single result set. After that the system forces the result set to be no more than 10 results in length.
-	3) The system then orders the 10 results by calculating the difference between the request and the 10 results. The 10 results are then sorted by their calculated difference. This final step is a sorting algorithm that uses normalized Euclidean distance. Take 2 attributes from your search sX and sY. Take 2 attributes from your search results called rX and rY. You then calculate the total difference between attributes of the search request and the attributes of the first search result. We calculate the difference using the following formas sX-rX=|dX| and sY-rY=|dY|. The total difference is |Total|=|dX|+|dY|.
+	3) The system then orders the 10 results by calculating the difference between the request and the 10 results. The 10 results are then sorted by their calculated difference. This final step is a sorting algorithm that uses normalized Euclidean distance. Take 2 attributes from your search sX and sY. Take 2 attributes from your search results called rX and rY. You then calculate the total difference between attributes of the search request and the attributes of the first search result. We calculate the difference using the following formas sX-rX=|dX| and sY-rY=|dY|. The total difference is |Total|=|dX|+|dY|. Here is an example:
+
 		search: sX=1 and sY=10
 		result: rX=2 and rY=5
 		subtraction: sX-rX=|dX| and sY-rY=|dY|
