@@ -27,7 +27,7 @@ Design:
 		         -->[Cultivar]
 		         -->[Cultivar]
 
-	The system performs three steps to produce a list of probable species. First it takes all the attributes from the request and for each attribute it selects all plants within 10% of the value of the attribute. Then the system aggregates the selected data into a single result set. After that the system forces the result set to be no more than 10 results in length. The system then orders the 10 results by taking a 4 point shape measurement of the request and calculating the difference between the request and the 10 results. The 10 results are then sorted by their calculated difference.
+	The system performs three steps to produce a list of probable species. First it takes all the attributes from the request and for each attribute it selects all plants within 10% of the value of the attribute. Then the system aggregates the selected data into a single result set. After that the system forces the result set to be no more than 10 results in length. The system then orders the 10 results by taking a 4 point shape measurement of the request and calculating the difference between the request and the 10 results. The 10 results are then sorted by their calculated difference. This final step is a sorting algorithm that uses normalized Euclidean distance. Take 2 attributes from your search sX and sY where sX=1 and sY=10. Take 2 attributes from your search results called rX and rY where rX=2 and rY=5. You then calculate the total difference between attributes of the search request and the attributes of the first search result. We calculate the difference using the following formas sX-rX=|dX| and sY-rY=|dY|. The total difference is |Total|=|dX|+|dY|
 
 Datasets:
 	Flavia Dataset (33 species, 1GB):
