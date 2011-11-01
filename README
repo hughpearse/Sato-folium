@@ -12,7 +12,7 @@ Requirements:
 	MySql			http://www.mysql.com/downloads/
 	CentOS			http://www.centos.org/
 
-Measureable leaf attributes:
+Biometrics:
 	Unique Color Count
 	Color Channel Standard Deviation (pixel quantity taken into account)
 	Surface Area Ratio
