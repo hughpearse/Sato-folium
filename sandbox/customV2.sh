@@ -46,18 +46,28 @@ fi
 	#Create image outline of leaf perimeter
 	convert seg_cr_bwsil_$pic -edge 1 seg_cr_bwsil_edge_$pic
 	
-	#Split cropped color photo into 3 color chanels for histograms
-	#Note: this creates 3 files with filenames ending in "-3.png"
-	convert seg_cr_$pic -separate -channel RGB seg_cr_rgb_$pic
-	
 #----------Biometrics----------
 	
 	#Extract information for Red, Green and blue color channel
 	#Note the shell expansion deleting the current file extension
-	identify -verbose seg_cr_rgb_${pic/.png/}-0.png | egrep "Colors:|deviation" | tr -s ' ' | awk '{printf $3 "\n"}'
-	identify -verbose seg_cr_rgb_${pic/.png/}-1.png | egrep "Colors:|deviation" | tr -s ' ' | awk '{printf $3 "\n"}'
-	identify -verbose seg_cr_rgb_${pic/.png/}-2.png | egrep "Colors:|deviation" | tr -s ' ' | awk '{printf $3 "\n"}'
-	
+	identify -format "%[width]" seg_cr_$pic
+	identify -format "%[height]" seg_cr_$pic
+
+	identify -channel R -format "%[standard-deviation]" seg_cr_$pic
+	identify -channel G -format "%[standard-deviation]" seg_cr_$pic
+	identify -channel B -format "%[standard-deviation]" seg_cr_$pic
+
+	identify -channel R -format "%[mean]" seg_cr_$pic
+	identify -channel G -format "%[mean]" seg_cr_$pic
+	identify -channel B -format "%[mean]" seg_cr_$pic
+
+	identify -channel R -format "%[max]" seg_cr_$pic
+	identify -channel G -format "%[max]" seg_cr_$pic
+	identify -channel B -format "%[max]" seg_cr_$pic
+
+	convert seg_cr_sil_Amelanchier-arborea.png -format %c histogram:info:- 2>&1 | grep black | awk '{printf $1}' | tr -d ':'
+	convert seg_cr_sil_Amelanchier-arborea.png -format %c histogram:info:- 2>&1 | grep none | awk '{printf $1}' | tr -d ':'
+
 	#Calculate relative surface area of the leaf
 	#Take the total number of black pixles and empty
 	#pixles to get the total surface area of the image.
