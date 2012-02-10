@@ -46,41 +46,91 @@ fi
 	#Create image outline of leaf perimeter
 	convert seg_cr_bwsil_$pic -edge 1 seg_cr_bwsil_edge_$pic
 	
+	#Cut the image up into 2 pixle slices
+	width=`identify -format "%[width]" seg_cr_$pic`
+	height=`identify -format "%[height]" seg_cr_$pic`
+	oneThirdH=`echo "$height/3" | bc`
+	oneThirdW=`echo "$height/3" | bc`
+		
+		#rotate image
+		convert seg_cr_bwsil_$pic -rotate 180 seg_cr_bwsil_180_$pic
+		convert seg_cr_bwsil_$pic -rotate 90 seg_cr_bwsil_90_$pic
+		convert seg_cr_bwsil_$pic -rotate 270 seg_cr_bwsil_270_$pic
+		
+		#extract slices 1/3 from top
+		convert -extract $widthx2+0+$oneThirdH seg_cr_bwsil_$pic slice1_$pic
+		convert -extract $widthx2+0+$oneThirdH seg_cr_bwsil_180_$pic slice3_$pic
+		convert -extract $heightx2+0+$oneThirdW seg_cr_bwsil_90_$pic slice2_$pic
+		convert -extract $heightx2+0+$oneThirdW seg_cr_bwsil_270_$pic slice4_$pic
+	
+		convert -fill red slice1_$pic -floodfill +0+0 "#FFFFFF" -fuzz "10%" slice1.0_$pic
+		convert -fill red slice3_$pic -floodfill +0+0 "#FFFFFF" -fuzz "10%" slice3.0_$pic
+		convert -fill red slice2_$pic -floodfill +0+0 "#FFFFFF" -fuzz "10%" slice2.0_$pic
+		convert -fill red slice4_$pic -floodfill +0+0 "#FFFFFF" -fuzz "10%" slice4.0_$pic
+
+		convert +transparent red -fuzz 10% slice1.0_$pic slice1.1_$pic
+		convert +transparent red -fuzz 10% slice3.0_$pic slice3.1_$pic
+		convert +transparent red -fuzz 10% slice2.0_$pic slice2.1_$pic
+		convert +transparent red -fuzz 10% slice4.0_$pic slice4.1_$pic
+
+		convert slice1.1_$pic -bordercolor none -border 1x1 -trim +repage slice1.2_$pic
+		convert slice3.1_$pic -bordercolor none -border 1x1 -trim +repage slice3.2_$pic
+		convert slice2.1_$pic -bordercolor none -border 1x1 -trim +repage slice2.2_$pic
+		convert slice4.1_$pic -bordercolor none -border 1x1 -trim +repage slice4.2_$pic
+
 #----------Biometrics----------
 	
+	#Create Width to Height ratio
+
 	#Extract information for Red, Green and blue color channel
-	#Note the shell expansion deleting the current file extension
-	identify -format "%[width]" seg_cr_$pic
-	identify -format "%[height]" seg_cr_$pic
+	deviationR=`identify -channel R -format "%[standard-deviation]" seg_cr_$pic`
+	deviationG=`identify -channel G -format "%[standard-deviation]" seg_cr_$pic`
+	deviationB=`identify -channel B -format "%[standard-deviation]" seg_cr_$pic`
 
-	identify -channel R -format "%[standard-deviation]" seg_cr_$pic
-	identify -channel G -format "%[standard-deviation]" seg_cr_$pic
-	identify -channel B -format "%[standard-deviation]" seg_cr_$pic
+	meanR=`identify -channel R -format "%[mean]" seg_cr_$pic`
+	meanG=`identify -channel G -format "%[mean]" seg_cr_$pic`
+	meanB=`identify -channel B -format "%[mean]" seg_cr_$pic`
 
-	identify -channel R -format "%[mean]" seg_cr_$pic
-	identify -channel G -format "%[mean]" seg_cr_$pic
-	identify -channel B -format "%[mean]" seg_cr_$pic
-
-	identify -channel R -format "%[max]" seg_cr_$pic
-	identify -channel G -format "%[max]" seg_cr_$pic
-	identify -channel B -format "%[max]" seg_cr_$pic
-
-	convert seg_cr_sil_Amelanchier-arborea.png -format %c histogram:info:- 2>&1 | grep black | awk '{printf $1}' | tr -d ':'
-	convert seg_cr_sil_Amelanchier-arborea.png -format %c histogram:info:- 2>&1 | grep none | awk '{printf $1}' | tr -d ':'
+	maxR=`identify -channel R -format "%[max]" seg_cr_$pic`
+	maxG=`identify -channel G -format "%[max]" seg_cr_$pic`
+	maxB=`identify -channel B -format "%[max]" seg_cr_$pic`
 
 	#Calculate relative surface area of the leaf
 	#Take the total number of black pixles and empty
 	#pixles to get the total surface area of the image.
 	#Divide the black pixles by the total to get the ratio of leaf to image.
-	none=`identify -verbose seg_cr_sil_$pic | sed '33,35!d' | egrep "black|none" | awk '{printf $1}' | tr ':' " " | awk '{printf $1}'`
-	black=`identify -verbose seg_cr_sil_$pic | sed '33,35!d' | egrep "black|none" | awk '{printf $1}' | tr ':' " " | awk '{printf $2}'`
-	pixsum=`echo "$none + $black" | bc`
-	ratio=`echo "scale=5; $black / $pixsum" | bc`
-	echo $ratio
-	
+	width=`identify -format "%[width]" seg_cr_$pic`
+	height=`identify -format "%[height]" seg_cr_$pic`
+	totalPix=`echo "$width*$height" | bc`
+	blackCount=`convert seg_cr_sil_$pic -format %c histogram:info:- 2>&1 | grep black | awk '{printf $1}' | tr -d ':'`
+	noneCount=`convert seg_cr_sil_$pic -format %c histogram:info:- 2>&1 | grep none | awk '{printf $1}' | tr -d ':'`
+	surfaceRatio=`echo "scale=5; $blackCount/$totalPix" | bc`
+
+	#Calculate width to height ratio of the leaf
+	whRatio=`echo "scale=2; $height/$width" | bc`
+
 	#Calculate the leaf preimeter to surface area ratio
 	#The edge should be 1px wide
 	#we can count all of the white pixles to sum up the total perimeter
 	#then divide the perimeter by the surface area
-	black=`identify -verbose seg_cr_sil_$pic | sed '33,35!d' | egrep "black|none" | awk '{printf $1}' | tr ':' " " | awk '{printf $2}'`
-	perimeter=``
+	whiteEdge=`convert seg_cr_bwsil_edge_$pic -format %c histogram:info:- 2>&1 | grep white | awk '{printf $1}' | tr -d ':'`
+	perimeterRatio=`echo "scale=0; $blackCount/$whiteEdge" | bc`
+
+	#Calculate gaps around the leaf as a ratio to the full slice
+	sliceWidth1=`identify -format "%[width]" slice1.1_$pic`
+	sliceWidth3=`identify -format "%[width]" slice3.1_$pic`
+	sliceWidth2=`identify -format "%[width]" slice2.1_$pic`
+	sliceWidth4=`identify -format "%[width]" slice4.1_$pic`
+
+	gapWidth1=`identify -format "%[width]" slice1.2_$pic`
+	gapWidth3=`identify -format "%[width]" slice3.2_$pic`
+	gapWidth2=`identify -format "%[width]" slice2.2_$pic`
+	gapWidth4=`identify -format "%[width]" slice4.2_$pic`
+
+	gapRatio1=`echo "$sliceWidth1/$gapWidth1" | bc`
+	gapRatio3=`echo "$sliceWidth3/$gapWidth3" | bc`
+	gapRatio2=`echo "$sliceWidth2/$gapWidth2" | bc`
+	gapRatio4=`echo "$sliceWidth4/$gapWidth4" | bc`
+
+#----------Output----------
+	echo "$whRatio,$surfaceRatio,$perimeterRatio,$deviationR,$deviationG,$deviationB,$meanR,$meanG,$meanB,$maxR,$maxG,$maxB,$gapRatio1,$gapRatio3,$gapRatio2,$gapRatio4";
