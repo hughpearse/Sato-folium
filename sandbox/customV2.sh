@@ -132,5 +132,10 @@ fi
 	gapRatio2=`echo "$sliceWidth2/$gapWidth2" | bc`
 	gapRatio4=`echo "$sliceWidth4/$gapWidth4" | bc`
 
+	#Separate genus and species name
+	fullLatinName=${1/\.*/}
+	genus=`echo "$fullLatinName" | tr '-' ' ' | awk '{printf $1}'`
+	species=`echo "$fullLatinName" | tr '-' ' ' | awk '{printf $2}'`
+
 #----------Output----------
-	echo "$whRatio,$surfaceRatio,$perimeterRatio,$deviationR,$deviationG,$deviationB,$meanR,$meanG,$meanB,$maxR,$maxG,$maxB,$gapRatio1,$gapRatio3,$gapRatio2,$gapRatio4";
+	echo "$genus,$species,$whRatio,$surfaceRatio,$perimeterRatio,$deviationR,$deviationG,$deviationB,$meanR,$meanG,$meanB,$maxR,$maxG,$maxB,$gapRatio1,$gapRatio3,$gapRatio2,$gapRatio4";
