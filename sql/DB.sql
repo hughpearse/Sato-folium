@@ -110,7 +110,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`speciesAverage` (
   `gapRatio1` FLOAT NULL DEFAULT NULL ,
   `gapRatio2` FLOAT NULL DEFAULT NULL ,
   `gapRatio3` FLOAT NULL DEFAULT NULL ,
-  `gapRatio4` FLOAT NULL DEFAULT NULL ,
+  `gapRatio4` DECIMAL(5,5) NULL DEFAULT NULL ,
   PRIMARY KEY (`species`, `genus`) )
 ENGINE = InnoDB;
 
@@ -138,7 +138,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`varietyAverage` (
   `maxB` FLOAT NULL DEFAULT NULL ,
   `gapRatio1` FLOAT NULL DEFAULT NULL ,
   `gapRatio2` FLOAT NULL DEFAULT NULL ,
-  `gapRatio3` FLOAT NULL DEFAULT NULL ,
+  `gapRatio3` DECIMAL(5,5) NULL DEFAULT NULL ,
   `gapRatio4` FLOAT NULL DEFAULT NULL ,
   PRIMARY KEY (`variety`, `species`, `genus`) )
 ENGINE = InnoDB;

@@ -11,9 +11,17 @@ Distinct on multiple columns:
 mysql --user="root" --password="" mydb --execute="select DISTINCT genus, species, variety from leaf;" -ss
 
 Tolerance Range for search
-SELECT column_name(s) FROM table_name WHERE column_name BETWEEN value1 AND value2
-Anonymous,Search,.99,.48194,84,13609.7,22853.7,7702.87,12099.4,21562.9,5207.42,61423,65535,59110,20,3,2,3
-
+#Anonymous,Search,.99,.48194,84,13609.7,22853.7,7702.87,12099.4,21562.9,5207.42,61423,65535,59110,20,3,2,3
+select * from speciesAverage;
+SELECT results.genus,results.species,COUNT(*) as occurrences
+from(
+select genus,species from speciesAverage where whRatio BETWEEN (0.99*0.90) and (0.99*1.1)
+union all
+select genus,species from speciesAverage where surfaceRatio BETWEEN (.48194*0.9) and (.48194*1.1)
+union all
+select genus,species from speciesAverage where perimeterRatio BETWEEN (84*0.9) and (84*1.1)
+) results
+group by genus,species;
 
 Join a distinct with an average
 mysql --user="root" --password="" mydb --execute="select avg(whRatio) from leaf group by genus,species,variety;"
@@ -38,6 +46,8 @@ http://www.roseindia.net/sql/sql-avg-group-by.shtml
 http://www.sql-tutorial.net/SQL-GROUP-BY.asp
 http://www.sqlcommands.net/sql+group+by/
 http://www.sqlteam.com/article/using-select-to-insert-records
-
-
+http://www.thereforesystems.com/linq-to-sql-join-on-multiple-conditions/
+http://sql-troubles.blogspot.com/2010/04/power-of-joins-part-iii-vertical-joins.html
+http://sql-troubles.blogspot.com/2010/04/power-of-joins-part-ii-horizontal-joins.html
+http://stackoverflow.com/questions/7902450/i-want-query-to-count-duplicate-entries-from-3-separate-columns-in-a-table-bu-wi
 
