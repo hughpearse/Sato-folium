@@ -138,7 +138,7 @@ fi
 	species=`echo "$fullLatinName" | tr '-' ' ' | awk '{printf $2}'`
 
 #----------Output----------
-	echo "$genus,$species,$whRatio,$surfaceRatio,$perimeterRatio,$deviationR,$deviationG,$deviationB,$meanR,$meanG,$meanB,$maxR,$maxG,$maxB,$gapRatio1,$gapRatio3,$gapRatio2,$gapRatio4";
+	echo "$whRatio $surfaceRatio $perimeterRatio $deviationR $deviationG $deviationB $meanR $meanG $meanB $maxR $maxG $maxB $gapRatio1 $gapRatio3 $gapRatio2 $gapRatio4";
 
 #----------Cleanup----------
 	rm ./*$fullLatinName.png &> /dev/null
