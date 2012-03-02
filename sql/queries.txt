@@ -11,28 +11,28 @@ Distinct on multiple columns:
 mysql --user="root" --password="" mydb --execute="select DISTINCT genus, species, variety from leaf;" -ss
 
 Tolerance Range for search
-#Anonymous,Search,.99,.48194,84,13609.7,22853.7,7702.87,12099.4,21562.9,5207.42,61423,65535,59110,20,3,2,3
+Anonymous,Search,.99,.48194,84,13609.7,22853.7,7702.87,12099.4,21562.9,5207.42,61423,65535,59110,20,3,2,3
+#Skim Algorithm
 select * from speciesAverage;
 SELECT results.genus,results.species,COUNT(*) as occurrences 
 from(
-select genus,species from speciesAverage where whRatio BETWEEN (0.99*0.90) and (0.99*1.1)
-union all select genus,species from speciesAverage where surfaceRatio BETWEEN (.48194*0.9) and (.48194*1.1)
+select genus,species from speciesAverage where surfaceRatio BETWEEN (.48194*0.9) and (.48194*1.1)
 union all select genus,species from speciesAverage where perimeterRatio BETWEEN (84*0.9) and (84*1.1)
-union all select genus,species from speciesAverage where deviationR BETWEEN (13609.7*0.9) and (13609.7*1.1)
-union all select genus,species from speciesAverage where deviationG BETWEEN (22853.7*0.9) and (22853.7*1.1)
-union all select genus,species from speciesAverage where deviationB BETWEEN (7702.87*0.9) and (7702.87*1.1)
-union all select genus,species from speciesAverage where meanR BETWEEN (12099.4*0.9) and (12099.4*1.1)
-union all select genus,species from speciesAverage where meanG BETWEEN (21562.9*0.9) and (21562.9*1.1)
-union all select genus,species from speciesAverage where meanB BETWEEN (5207.42*0.9) and (5207.42*1.1)
-union all select genus,species from speciesAverage where maxR BETWEEN (61423*0.9) and (61423*1.1)
-union all select genus,species from speciesAverage where maxG BETWEEN (65535*0.9) and (65535*1.1)
-union all select genus,species from speciesAverage where maxB BETWEEN (59110*0.9) and (59110*1.1)
-union all select genus,species from speciesAverage where gapRatio1 BETWEEN (20*0.9) and (20*1.1)
-union all select genus,species from speciesAverage where gapRatio2 BETWEEN (3*0.9) and (3*1.1)
-union all select genus,species from speciesAverage where gapRatio3 BETWEEN (2*0.9) and (2*1.1)
-union all select genus,species from speciesAverage where gapRatio4 BETWEEN (3*0.9) and (3*1.1)
 ) results
 group by genus,species ORDER BY occurrences DESC;
+
+#Crunch Algorithm
+select genus,species,
+(
+( greatest(ABS(surfaceRatio),ABS(.48194)) / least(ABS(surfaceRatio),ABS(.48194)) ) + 
+( greatest(ABS(perimeterRatio),ABS(84)) / least(ABS(perimeterRatio),ABS(84)) ) 
+)
+as difference
+from speciesAverage 
+where 
+surfaceRatio BETWEEN (.48194*0.9) and (.48194*1.1) and 
+perimeterRatio BETWEEN (84*0.9) and (84*1.1)
+ORDER BY difference ASC;
 
 Join a distinct with an average
 mysql --user="root" --password="" mydb --execute="select avg(whRatio) from leaf group by genus,species,variety;"
@@ -61,4 +61,6 @@ http://www.thereforesystems.com/linq-to-sql-join-on-multiple-conditions/
 http://sql-troubles.blogspot.com/2010/04/power-of-joins-part-iii-vertical-joins.html
 http://sql-troubles.blogspot.com/2010/04/power-of-joins-part-ii-horizontal-joins.html
 http://stackoverflow.com/questions/7902450/i-want-query-to-count-duplicate-entries-from-3-separate-columns-in-a-table-bu-wi
+http://www.adp-gmbh.ch/ora/sql/greatest_least.html
+http://www.techonthenet.com/oracle/functions/abs.php
 
