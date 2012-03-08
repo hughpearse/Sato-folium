@@ -1,20 +1,43 @@
+================From speciesAverage table=================
 #Query 1 - Skim Algorithm
-#10,004 transactions (61 iterations of the database)
+#10,004 transactions (61 iterations)
 #time ./bench3.sh
 real	3m35.409s
 user	1m21.012s
 sys	1m23.934s
 
 #Query 2 - Crunch Algorithm
-#10,004 transactions (61 iterations of the database)
+#10,004 transactions (61 iterations)
 #time ./bench4.sh
-real	3m12.346s
-user	1m17.992s
-sys	1m20.454s
+real	3m4.396s
+user	1m14.748s
+sys	1m20.699s
 
 #Query 3 - Combined Algorithms
-#10,004 transactions (61 iterations of the database)
+#10,004 transactions (61 iterations)
 #time ./bench5.sh
-real	3m30.920s
-user	1m5.527s
-sys	1m5.858s
+real	3m26.491s
+user	1m5.120s
+sys	1m5.038s
+
+================From leaf table=================
+#Query 1 - Skim Algorithm
+#10,004 transactions (1 iteration of the database)
+#time ./bench3.sh
+real	0m27.917s
+user	0m0.853s
+sys	0m1.005s
+
+#Query 2 - Crunch Algorithm
+#10,004 transactions (1 iteration of the database)
+#time ./bench4.sh
+real	0m11.023s
+user	0m0.867s
+sys	0m1.078s
+
+#Query 3 - Combined Algorithms
+#10,004 transactions (1 iterations of the database)
+#time ./bench5.sh
+real	0m37.725s
+user	0m1.071s
+sys	0m1.070s
