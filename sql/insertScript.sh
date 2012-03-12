@@ -4,6 +4,7 @@ mysql --user="root" --password="" mydb --execute="DELETE FROM leaf;";
 mysql --user="root" --password="" mydb --execute="DELETE FROM varietyAverage;";
 mysql --user="root" --password="" mydb --execute="DELETE FROM speciesAverage;";
 mysql --user="root" --password="" mydb --execute="DELETE FROM genusAverage;";
+mysql --user="root" --password="" mydb --execute="DELETE FROM posts;";
 
 function blah(){
 for line in `cat databaseForInserts.txt`
@@ -12,7 +13,7 @@ mysql --user="root" --password="" mydb --execute="INSERT INTO leaf (variety,genu
 done
 }
 
-for i in {1..61}
+for i in {1..1}
 do
 	blah;
 done;
