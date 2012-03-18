@@ -9,22 +9,22 @@
 What is this project?:
 	A Search Engine For Photographs of Plants.
 
+Where can I find detailed information about this project?
+	There is documentation in the docs folder.
+
 Does this project have a dataset of plant leaves?
-	No, this project uses existing datasets.
+	No, this project uses small 3rd party datasets that are freely available
+	and are being used for educational purposes only. This is termed as fair use.
+
+What license is this software issued under?
+	This software is issued under Reciprocal Public License 1.5
+	http://www.opensource.org/licenses/rpl1.5.txt
 
 Requirements:
 	Image-Magic		http://www.imagemagick.org/script/index.php
 	Image-Magic Scripts	http://www.fmwconcepts.com/imagemagick/
 	MySql			http://www.mysql.com/downloads/
 	CentOS			http://www.centos.org/
-
-Biometrics:
-	Unique Color Count
-	Color Channel Standard Deviation (pixel quantity taken into account)
-	Surface Area Ratio
-	Width to Height Ratio
-	Leaf parameter to surface area ratio
-	Four point shape measurement
 
 Datasets:
 	Flavia Dataset (33 species, 1GB):
@@ -37,23 +37,23 @@ Datasets:
 	http://leafsnap.com/species/
 
 Similar Software:
-	Flavia
-	http://flavia.sourceforge.net/
-	
 	Leaf Snap
 	http://leafsnap.com/
 	
-	John Flanagan - project Maple
+	leaf-recognition
+        http://code.google.com/p/leaf-recognition/
+
+	[2007] Flavia
+	http://flavia.sourceforge.net/
+
+	[2011] John Flanagan - project Maple
 	https://github.com/johnflan/Maple
 	
-	Leaves Recognition v1.0
+	[2007] Leaves Recognition v1.0
 	http://sourceforge.net/projects/lrecog/
 	
-	ePlantAnalyzer
+	[2009] ePlantAnalyzer
 	http://www.youtube.com/watch?v=ShN_0hqnyM0
 	
-	leaf-recognition
-	http://code.google.com/p/leaf-recognition/
-	
-	kfulles
+	[2010] kfulles
 	http://code.google.com/p/kfulles/
