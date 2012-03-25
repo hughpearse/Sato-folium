@@ -141,4 +141,4 @@ fi
 	echo "$whRatio $surfaceRatio $perimeterRatio $deviationR $deviationG $deviationB $meanR $meanG $meanB $maxR $maxG $maxB $gapRatio1 $gapRatio3 $gapRatio2 $gapRatio4";
 
 #----------Cleanup----------
-	rm ./*$fullLatinName.png &> /dev/null
+	#rm ./*$fullLatinName.png &> /dev/null
