@@ -1,5 +1,7 @@
-# Image Recognition of Plant Leaves for Species Identification 
-## Hugh Pearse
+Image Recognition of Plant Leaves for Species Identification 
+=============
+Hugh Pearse
+-------
 
 **What is this project?:**
 	A Search Engine For Photographs of Plants.
@@ -16,10 +18,10 @@
 	http://www.opensource.org/licenses/rpl1.5.txt
 
 **Requirements:**
-	Image-Magic		http://www.imagemagick.org/script/index.php
-	Image-Magic Scripts	http://www.fmwconcepts.com/imagemagick/
-	MySql			http://www.mysql.com/downloads/
-	CentOS			http://www.centos.org/
+* [Image-Magic](http://www.imagemagick.org/script/index.php)
+* [Image-Magic Scripts](http://www.fmwconcepts.com/imagemagick/)
+* [MySql](http://www.mysql.com/downloads/)
+* [CentOS](http://www.centos.org/)
 
 **Datasets:**
 	[Flavia Dataset (33 species, 1GB)](https://sourceforge.net/projects/flavia/files/Leaf%20Image%20Dataset/1.0/Leaves.tar.bz2/download)
