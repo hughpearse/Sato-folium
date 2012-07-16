@@ -1,39 +1,32 @@
-############################################################################
-#	Hugh Pearse                      #
-#                                                                          #
-#	Title:                                                             #
-#	Image Recognition of Plant Leaves for Species Identification       #
-############################################################################
+# Image Recognition of Plant Leaves for Species Identification 
+## Hugh Pearse
 
-What is this project?:
+**What is this project?:**
 	A Search Engine For Photographs of Plants.
 
-Where can I find detailed information about this project?
+**Where can I find detailed information about this project?**
 	There is documentation in the docs folder.
 
-Does this project have a dataset of plant leaves?
+**Does this project have a dataset of plant leaves?**
 	No, this project uses small 3rd party datasets that are freely available
 	and are being used for educational purposes only. This is termed as fair use.
 
-What license is this software issued under?
+**What license is this software issued under?**
 	This software is issued under Reciprocal Public License 1.5
 	http://www.opensource.org/licenses/rpl1.5.txt
 
-Requirements:
+**Requirements:**
 	Image-Magic		http://www.imagemagick.org/script/index.php
 	Image-Magic Scripts	http://www.fmwconcepts.com/imagemagick/
 	MySql			http://www.mysql.com/downloads/
 	CentOS			http://www.centos.org/
 
-Datasets:
-	Flavia Dataset (33 species, 1GB):
-	https://sourceforge.net/projects/flavia/files/Leaf%20Image%20Dataset/1.0/Leaves.tar.bz2/download
+**Datasets:**
+	[Flavia Dataset (33 species, 1GB)](https://sourceforge.net/projects/flavia/files/Leaf%20Image%20Dataset/1.0/Leaves.tar.bz2/download)
 
-	Leaf-Recognition Dataset (92 species, 4MB):
-	http://leaf-recognition.googlecode.com/files/dataset.zip
+	[Leaf-Recognition Dataset (92 species, 4MB)](http://leaf-recognition.googlecode.com/files/dataset.zip)
 
-	Leaf Snap (164 species, 13MB)
-	http://leafsnap.com/species/
+	[Leaf Snap (164 species, 13MB)](http://leafsnap.com/species/)
 
 Similar Software:
 	Leaf Snap
